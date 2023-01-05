@@ -9,8 +9,8 @@
 }
 
 body {
-	background-color: darkcyan;
-	color: var(--light);
+	background-image: url("pexels-pixabay-326333.png");
+	background-size: cover;
 }
 
 .black-lining {
