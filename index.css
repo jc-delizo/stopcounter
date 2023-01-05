@@ -47,7 +47,59 @@ body {
 .controls {
 	position: absolute;
 	display: inline-block;
-	transition: transform 400ms ease;
+}
+
+.design {
+	position: absolute;
+	display: inline-block;
+}
+
+#zuittlogo {
+	height: 50px;
+	width: 50px;
+	margin-bottom: 340px;
+}
+
+#zuitt {
+	color: black;
+	font-family: 'Roboto Slab', sans-serif;
+	font-weight: 700;
+	font-size: 30px;
+	letter-spacing: 3px;
+	margin-bottom: 250px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#description {
+	color: black;
+	font-family: 'Noto Sans', sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 5px;
+	margin-bottom: 150px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#names {
+	color: black;
+	font-family: 'Noto Sans', sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 2px;
+	margin-top: 150px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#diamond {
+	height: 60px;
+	width: 60px;
+	margin-top: 310px;
 }
 
 .start-container {
@@ -287,6 +339,7 @@ body {
 	color: gray;
 	position: relative;
 	display: block;
+	font-weight: 700;
 }
 
 .stopwatchText {
@@ -361,10 +414,11 @@ body {
 	transform: rotate(72deg);
 }
 #countdown-w {
-	transform: rotate(76deg);
+	transform: rotate(76.3deg);
+	padding-bottom: 209px!important;
 }
 #countdown-nn {
-	transform: rotate(80deg);
+	transform: rotate(80.5deg);
 }
 
 .upChars {
