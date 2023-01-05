@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" type="text/css" href="index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <title>Countdown and Stopwatch</title>
+  </head>
+  <body>
+    <div class="case">
+      <div class="black-lining">
+        <div class="outer-watch">
+          <div class="inner-watch">
+            <div class="watch items">
+              <div class="time">00:00:00</div>
+            </div>
+            <div class="button-text items">
+              <div class="stopwatchText" id="stopwatchText">
+                <span class="stopwatchChars" id="stopwatch-s">S</span>
+                <span class="stopwatchChars" id="stopwatch-t">T</span>
+                <span class="stopwatchChars" id="stopwatch-o">O</span>
+                <span class="stopwatchChars" id="stopwatch-p">P</span>
+                <span class="stopwatchChars" id="stopwatch-w">W</span>
+                <span class="stopwatchChars" id="stopwatch-a">A</span>
+                <span class="stopwatchChars" id="stopwatch-tt">T</span>
+                <span class="stopwatchChars" id="stopwatch-c">C</span>
+                <span class="stopwatchChars" id="stopwatch-h">H</span>
+              </div>
+            </div>
+
+            <div class="button-text items">
+              <div class="countdownText" id="countdownText">
+                <span class="countdownChars" id="countdown-c">C</span>
+                <span class="countdownChars" id="countdown-o">O</span>
+                <span class="countdownChars" id="countdown-u">U</span>
+                <span class="countdownChars" id="countdown-n">N</span>
+                <span class="countdownChars" id="countdown-t">T</span>
+                <span class="countdownChars" id="countdown-d">D</span>
+                <span class="countdownChars" id="countdown-oo">O</span>
+                <span class="countdownChars" id="countdown-w">W</span>
+                <span class="countdownChars" id="countdown-nn">N</span>
+              </div>
+            </div>
+
+            <div class="button-text items">
+              <div class="upText" id="upText">
+                <span class="upChars" id="up-u">U</span>
+                <span class="upChars" id="up-p">P</span>
+              </div>
+            </div>
+
+            <div class="button-text items">
+              <div class="downText" id="downText">
+                <span class="downChars" id="down-d">D</span>
+                <span class="downChars" id="down-o">O</span>
+                <span class="downChars" id="down-w">W</span>
+                <span class="downChars" id="down-n">N</span>
+              </div>
+            </div>
+
+            <div class="button-text items">
+              <div class="modeText" id="modeText">
+                <span class="modeChars" id="mode-h">H</span>
+                <span class="modeChars" id="mode-o">O</span>
+                <span class="modeChars" id="mode-u">U</span>
+                <span class="modeChars" id="mode-r">R</span>
+                <span class="modeChars" id="mode-dash-o">-</span>
+                <span class="modeChars" id="mode-m">M</span>
+                <span class="modeChars" id="mode-i">I</span>
+                <span class="modeChars" id="mode-n">N</span>
+                <span class="modeChars" id="mode-s">S</span>
+                <span class="modeChars" id="mode-dash-t">-</span>
+                <span class="modeChars" id="mode-ss">S</span>
+                <span class="modeChars" id="mode-e">E</span>
+                <span class="modeChars" id="mode-c">C</span>
+                <span class="modeChars" id="mode-sss">S</span>
+              </div>
+            </div>
+
+            <div class="button-text items">
+              <div class="startText" id="startText">
+                <span class="startChars" id="start-s">S</span>
+                <span class="startChars" id="start-t">T</span>
+                <span class="startChars" id="start-a">A</span>
+                <span class="startChars" id="start-r">R</span>
+                <span class="startChars" id="start-tt">T</span>
+              </div>
+            </div>
+
+            <div class="button-text items">
+              <div class="stopText" id="stopText">
+                <span class="stopChars" id="stop-s">S</span>
+                <span class="stopChars" id="stop-t">T</span>
+                <span class="stopChars" id="stop-o">O</span>
+                <span class="stopChars" id="stop-p">P</span>
+              </div>
+            </div>
+
+            <div class="button-text items">
+              <div class="resetText" id="resetText">
+                <span class="resetChars" id="reset-r">R</span>
+                <span class="resetChars" id="reset-e">E</span>
+                <span class="resetChars" id="reset-s">S</span>
+                <span class="resetChars" id="reset-ee">E</span>
+                <span class="resetChars" id="reset-t">T</span>
+              </div>
+            </div>
+
+            <div class="start-stand controls"></div>
+            <div class="stop-stand controls"></div>
+            <div class="reset-stand controls"></div>
+            <div class="stopwatch-stand controls"></div>
+            <div class="countdown-stand controls"></div>
+            <div class="up-stand controls"></div>
+            <div class="down-stand controls"></div>
+            <div class="mode-stand controls"></div>
+            <div class="start-container controls controls">
+              <button id="start"></button>
+            </div>
+            <div class="stop-container controls">
+              <button id="stop"></button>
+            </div>
+            <div class="reset-container controls">
+              <button id="reset"></button>
+            </div>
+            <div class="stopwatch-container controls">
+              <button id="stopwatch"></button>
+            </div>
+            <div class="countdown-container controls">
+              <button id="countdown"></button>
+            </div>
+            <div class="up-container controls">
+              <button id="uptime"></button>
+            </div>
+            <div class="down-container controls">
+              <button id="downtime"></button>
+            </div>
+            <div class="mode-container controls">
+              <button id="mode"></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="index.js"></script>
+  </body>
+</html>
