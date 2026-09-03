@@ -1,180 +1,326 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-      integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N"
-      crossorigin="anonymous"
+    <meta
+      name="description"
+      content="A responsive physical stopwatch and countdown timer with precise controls and sound feedback."
     />
-    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon.png">
-    <link rel="stylesheet" type="text/css" href="index.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap"
-      rel="stylesheet"
+    <meta name="theme-color" content="#171311" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="JCNESS Stopwatch &amp; Countdown" />
+    <meta
+      property="og:description"
+      content="Keep time with an accurate, accessible stopwatch and countdown timer."
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&family=Roboto+Slab:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <title>Countdown and Stopwatch</title>
+    <meta
+      property="og:url"
+      content="https://jc-delizo.github.io/stopcounter/"
+    />
+    <link rel="canonical" href="https://jc-delizo.github.io/stopcounter/" />
+    <link rel="icon" type="image/png" sizes="96x96" href="images/favicon.png" />
+    <link
+      rel="preload"
+      href="fonts/orbitron-bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="index.css" />
+    <title>JCNESS Stopwatch &amp; Countdown</title>
   </head>
   <body>
-    <div class="case">
-      <div class="black-lining">
-        <div class="outer-watch">
-          <div class="inner-watch">
-            <div class="watch items">
-              <div class="time">00:00:00</div>
-            </div>
-            <div class="button-text items">
-              <div class="stopwatchText" id="stopwatchText">
-                <span class="stopwatchChars" id="stopwatch-s">S</span>
-                <span class="stopwatchChars" id="stopwatch-t">T</span>
-                <span class="stopwatchChars" id="stopwatch-o">O</span>
-                <span class="stopwatchChars" id="stopwatch-p">P</span>
-                <span class="stopwatchChars" id="stopwatch-w">W</span>
-                <span class="stopwatchChars" id="stopwatch-a">A</span>
-                <span class="stopwatchChars" id="stopwatch-tt">T</span>
-                <span class="stopwatchChars" id="stopwatch-c">C</span>
-                <span class="stopwatchChars" id="stopwatch-h">H</span>
+    <canvas id="rain-canvas" class="rain-canvas" aria-hidden="true"></canvas>
+    <button
+      id="rain-toggle"
+      class="rain-toggle"
+      type="button"
+      aria-label="Turn rain off"
+      aria-pressed="true"
+      title="Turn rain off"
+    >
+      <svg viewBox="0 0 16 20" aria-hidden="true" focusable="false">
+        <path
+          d="M8 0.9C6.4 4.1 2.1 8.6 2.1 13A5.9 5.9 0 0 0 13.9 13C13.9 8.6 9.6 4.1 8 0.9Z"
+        />
+      </svg>
+      <span id="rain-toggle-label">RAIN ON</span>
+    </button>
+
+    <main class="app-shell">
+      <section class="timer-workspace" aria-labelledby="timer-heading">
+        <h1 id="timer-heading" class="sr-only">
+          JCNESS Stopwatch and Countdown
+        </h1>
+
+        <div class="watch-column">
+          <div
+            class="watch-assembly"
+            role="group"
+            aria-label="Interactive stopwatch controls"
+          >
+            <button
+              id="hardware-start"
+              class="hardware-control hardware-start"
+              type="button"
+              aria-label="Start timer"
+              aria-keyshortcuts="Space"
+              title="Start timer"
+            >
+              <span class="sr-only">Start timer</span>
+            </button>
+            <button
+              id="hardware-pause"
+              class="hardware-control hardware-pause"
+              type="button"
+              aria-label="Pause timer"
+              aria-keyshortcuts="Space"
+              title="Pause timer"
+              disabled
+            >
+              <span class="sr-only">Pause timer</span>
+            </button>
+            <button
+              id="hardware-reset"
+              class="hardware-control hardware-reset"
+              type="button"
+              aria-label="Reset timer"
+              aria-keyshortcuts="R"
+              title="Reset timer"
+              disabled
+            >
+              <span class="sr-only">Reset timer</span>
+            </button>
+            <button
+              id="hardware-stopwatch"
+              class="hardware-control hardware-stopwatch"
+              type="button"
+              aria-label="Switch to stopwatch mode"
+              aria-keyshortcuts="S"
+              title="Stopwatch mode"
+              aria-pressed="true"
+              disabled
+            >
+              <span class="sr-only">Switch to stopwatch mode</span>
+            </button>
+            <button
+              id="hardware-countdown"
+              class="hardware-control hardware-countdown"
+              type="button"
+              aria-label="Switch to countdown mode"
+              aria-keyshortcuts="C"
+              title="Countdown mode"
+              aria-pressed="false"
+            >
+              <span class="sr-only">Switch to countdown mode</span>
+            </button>
+            <button
+              id="hardware-increase"
+              class="hardware-control hardware-increase"
+              type="button"
+              aria-label="Increase countdown"
+              title="Increase countdown"
+              disabled
+            >
+              <span class="sr-only">Increase countdown</span>
+            </button>
+            <button
+              id="hardware-decrease"
+              class="hardware-control hardware-decrease"
+              type="button"
+              aria-label="Decrease countdown"
+              title="Decrease countdown"
+              disabled
+            >
+              <span class="sr-only">Decrease countdown</span>
+            </button>
+            <button
+              id="hardware-unit"
+              class="hardware-control hardware-unit"
+              type="button"
+              aria-label="Change countdown adjustment unit"
+              title="Change adjustment unit"
+              disabled
+            >
+              <span class="sr-only">Change countdown adjustment unit</span>
+            </button>
+
+            <svg
+              class="dial-labels"
+              viewBox="0 0 600 600"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <defs>
+                <path
+                  id="dial-ring-path"
+                  pathLength="100"
+                  d="M 300 28 A 272 272 0 1 1 299.9 28"
+                />
+                <path
+                  id="dial-bottom-path"
+                  pathLength="100"
+                  d="M 112 504 Q 300 651 488 504"
+                />
+              </defs>
+              <text class="dial-copy" data-label="start">
+                <textPath href="#dial-ring-path" startOffset="75%">
+                  START
+                </textPath>
+              </text>
+              <text class="dial-copy" data-label="pause">
+                <textPath href="#dial-ring-path" startOffset="83.9%">
+                  PAUSE
+                </textPath>
+              </text>
+              <text class="dial-copy" data-label="reset">
+                <textPath href="#dial-ring-path" startOffset="92.2%">
+                  RESET
+                </textPath>
+              </text>
+              <text class="dial-copy selected" data-label="stopwatch">
+                <textPath href="#dial-ring-path" startOffset="7%">
+                  STOPWATCH
+                </textPath>
+              </text>
+              <text class="dial-copy" data-label="countdown">
+                <textPath href="#dial-ring-path" startOffset="15.8%">
+                  COUNTDOWN
+                </textPath>
+              </text>
+              <text class="dial-copy dial-symbol" data-label="increase">
+                <textPath href="#dial-ring-path" startOffset="25%">UP</textPath>
+              </text>
+              <text class="dial-copy" data-label="decrease">
+                <textPath href="#dial-ring-path" startOffset="33.9%">
+                  DOWN
+                </textPath>
+              </text>
+              <text class="dial-copy dial-unit-copy" data-label="unit">
+                <textPath
+                  id="unit-label-path"
+                  href="#dial-bottom-path"
+                  startOffset="50%"
+                >
+                  SECONDS
+                </textPath>
+              </text>
+            </svg>
+
+            <div class="watch-body">
+              <div class="watch-face">
+                <img
+                  class="watch-logo"
+                  src="images/zuittlogo-96.png"
+                  alt=""
+                  width="56"
+                  height="56"
+                />
+                <p class="watch-brand">JESUS IS KING</p>
+                <p id="watch-mode" class="watch-mode">
+                  STOPWATCH &amp; COUNTDOWN TIMER
+                </p>
+
+                <div class="display-panel">
+                  <time
+                    id="time-display"
+                    class="time-display"
+                    datetime="PT0S"
+                    role="timer"
+                    aria-label="Stopwatch time 00 00 00"
+                  >
+                    <span
+                      class="time-digit"
+                      data-time-slot="0"
+                      aria-hidden="true"
+                      >0</span
+                    >
+                    <span
+                      class="time-digit"
+                      data-time-slot="1"
+                      aria-hidden="true"
+                      >0</span
+                    >
+                    <span class="time-colon" aria-hidden="true">:</span>
+                    <span
+                      class="time-digit"
+                      data-time-slot="2"
+                      aria-hidden="true"
+                      >0</span
+                    >
+                    <span
+                      class="time-digit"
+                      data-time-slot="3"
+                      aria-hidden="true"
+                      >0</span
+                    >
+                    <span class="time-colon" aria-hidden="true">:</span>
+                    <span
+                      class="time-digit"
+                      data-time-slot="4"
+                      aria-hidden="true"
+                      >0</span
+                    >
+                    <span
+                      class="time-digit"
+                      data-time-slot="5"
+                      aria-hidden="true"
+                      >0</span
+                    >
+                  </time>
+                  <span id="watch-state" class="watch-state">Ready</span>
+                </div>
+
+                <div id="progress-wrap" class="progress-wrap inactive">
+                  <progress
+                    id="countdown-progress"
+                    max="100"
+                    value="0"
+                    aria-label="Countdown progress"
+                    aria-disabled="true"
+                  >
+                    0%
+                  </progress>
+                </div>
+
+                <p class="watch-motto">JCNESS</p>
+                <img
+                  class="watch-gem"
+                  src="images/diamond-96.png"
+                  alt=""
+                  width="52"
+                  height="52"
+                />
               </div>
-            </div>
-
-            <div class="button-text items">
-              <div class="countdownText" id="countdownText">
-                <span class="countdownChars" id="countdown-c">C</span>
-                <span class="countdownChars" id="countdown-o">O</span>
-                <span class="countdownChars" id="countdown-u">U</span>
-                <span class="countdownChars" id="countdown-n">N</span>
-                <span class="countdownChars" id="countdown-t">T</span>
-                <span class="countdownChars" id="countdown-d">D</span>
-                <span class="countdownChars" id="countdown-oo">O</span>
-                <span class="countdownChars" id="countdown-w">W</span>
-                <span class="countdownChars" id="countdown-nn">N</span>
-              </div>
-            </div>
-
-            <div class="button-text items">
-              <div class="upText" id="upText">
-                <span class="upChars" id="up-u">U</span>
-                <span class="upChars" id="up-p">P</span>
-              </div>
-            </div>
-
-            <div class="button-text items">
-              <div class="downText" id="downText">
-                <span class="downChars" id="down-d">D</span>
-                <span class="downChars" id="down-o">O</span>
-                <span class="downChars" id="down-w">W</span>
-                <span class="downChars" id="down-n">N</span>
-              </div>
-            </div>
-
-            <div class="button-text items">
-              <div class="modeText" id="modeText">
-                <span class="modeChars" id="mode-h">H</span>
-                <span class="modeChars" id="mode-o">O</span>
-                <span class="modeChars" id="mode-u">U</span>
-                <span class="modeChars" id="mode-r">R</span>
-                <span class="modeChars" id="mode-dash-o">-</span>
-                <span class="modeChars" id="mode-m">M</span>
-                <span class="modeChars" id="mode-i">I</span>
-                <span class="modeChars" id="mode-n">N</span>
-                <span class="modeChars" id="mode-s">S</span>
-                <span class="modeChars" id="mode-dash-t">-</span>
-                <span class="modeChars" id="mode-ss">S</span>
-                <span class="modeChars" id="mode-e">E</span>
-                <span class="modeChars" id="mode-c">C</span>
-                <span class="modeChars" id="mode-sss">S</span>
-              </div>
-            </div>
-
-            <div class="button-text items">
-              <div class="startText" id="startText">
-                <span class="startChars" id="start-s">S</span>
-                <span class="startChars" id="start-t">T</span>
-                <span class="startChars" id="start-a">A</span>
-                <span class="startChars" id="start-r">R</span>
-                <span class="startChars" id="start-tt">T</span>
-              </div>
-            </div>
-
-            <div class="button-text items">
-              <div class="stopText" id="stopText">
-                <span class="stopChars" id="stop-s">S</span>
-                <span class="stopChars" id="stop-t">T</span>
-                <span class="stopChars" id="stop-o">O</span>
-                <span class="stopChars" id="stop-p">P</span>
-              </div>
-            </div>
-
-            <div class="button-text items">
-              <div class="resetText" id="resetText">
-                <span class="resetChars" id="reset-r">R</span>
-                <span class="resetChars" id="reset-e">E</span>
-                <span class="resetChars" id="reset-s">S</span>
-                <span class="resetChars" id="reset-ee">E</span>
-                <span class="resetChars" id="reset-t">T</span>
-              </div>
-            </div>
-
-            <div class="start-stand controls"></div>
-            <div class="stop-stand controls"></div>
-            <div class="reset-stand controls"></div>
-            <div class="stopwatch-stand controls"></div>
-            <div class="countdown-stand controls"></div>
-            <div class="up-stand controls"></div>
-            <div class="down-stand controls"></div>
-            <div class="mode-stand controls"></div>
-            <div class="start-container controls controls">
-              <button id="start"></button>
-            </div>
-            <div class="stop-container controls">
-              <button id="stop"></button>
-            </div>
-            <div class="reset-container controls">
-              <button id="reset"></button>
-            </div>
-            <div class="stopwatch-container controls">
-              <button id="stopwatch"></button>
-            </div>
-            <div class="countdown-container controls">
-              <button id="countdown"></button>
-            </div>
-            <div class="up-container controls">
-              <button id="uptime"></button>
-            </div>
-            <div class="down-container controls">
-              <button id="downtime"></button>
-            </div>
-            <div class="mode-container controls">
-              <button id="mode"></button>
-            </div>
-
-
-            <div class="design">
-              <img id="zuittlogo" src="images/zuittlogo.png">
-            </div>
-            <div class="design">
-              <span id="zuitt">JCNESS</span>
-            </div>
-            <div class="design">
-              <span id="description">STOPWATCH & COUNTDOWN</span>
-            </div>
-            <div class="design">
-              <span id="names">TIME AND TIDE WAIT FOR NO MAN</span>
-            </div>
-            <div class="design">
-              <img id="diamond" src="images/diamond.png">
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-    <script type="text/javascript" src="index.js"></script>
+          <p class="hardware-hint">
+            Select a mode on the dial. In countdown mode, choose seconds,
+            minutes, or hours with <strong>Unit</strong>, then use
+            <strong>Up</strong> and <strong>Down</strong> to set the time.
+          </p>
+          <p class="keyboard-hint">
+            <kbd>Space</kbd> start/pause · <kbd>R</kbd> reset ·
+            <kbd>S</kbd> stopwatch · <kbd>C</kbd> countdown
+          </p>
+          <p
+            id="status-message"
+            class="sr-only"
+            role="status"
+            aria-live="polite"
+          >
+            Stopwatch ready.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Designed and built by JC Delizo.</p>
+    </footer>
+
+    <script type="module" src="index.js"></script>
   </body>
 </html>

@@ -1,0 +1,27 @@
+{
+  "name": "jcness-stopcounter",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "An accessible, responsive stopwatch and countdown timer.",
+  "scripts": {
+    "dev": "node scripts/serve.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "validate:html": "html-validate index.html",
+    "test:unit": "node --test tests/timer-core.test.js",
+    "test:e2e": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e",
+    "check": "npm run lint && npm run format:check && npm run validate:html && npm test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "eslint": "^10.9.1",
+    "html-validate": "^11.12.0",
+    "prettier": "^3.9.6"
+  }
+}
