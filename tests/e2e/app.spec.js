@@ -277,12 +277,37 @@ test("activates window-frame lightning without person silhouettes", async ({
   await expect(toggle).toHaveAttribute("aria-pressed", "false");
   await expect(toggle).toHaveAccessibleName("Turn lightning on");
   await expect(canvas).toHaveCSS("pointer-events", "none");
+  await expect(canvas).not.toHaveAttribute("data-flash-count", /.+/);
   await expect(page.locator("body")).toHaveAttribute("data-lightning", "off");
+
+  const controlLayout = await page
+    .locator(".weather-controls")
+    .evaluate((controls) => {
+      const rain = controls
+        .querySelector("#rain-toggle")
+        .getBoundingClientRect();
+      const lightning = controls
+        .querySelector("#lightning-toggle")
+        .getBoundingClientRect();
+      return {
+        position: getComputedStyle(controls).position,
+        sameRow: Math.abs(rain.top - lightning.top) < 1,
+        orderedLeftToRight: rain.right < lightning.left,
+        insideViewport: lightning.right <= document.documentElement.clientWidth,
+      };
+    });
+  expect(controlLayout).toEqual({
+    position: "fixed",
+    sameRow: true,
+    orderedLeftToRight: true,
+    insideViewport: true,
+  });
 
   await toggle.click();
   await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await expect(page.locator("body")).toHaveAttribute("data-lightning", "on");
   await expect(canvas).not.toHaveAttribute("data-pose", /.+/);
+  await expect(canvas).toHaveAttribute("data-flash-count", "1");
 
   await toggle.click();
   await expect(toggle).toHaveAttribute("aria-pressed", "false");

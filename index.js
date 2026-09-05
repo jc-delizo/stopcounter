@@ -6,9 +6,9 @@ import {
   describeAdjustment,
   formatDuration,
   toIsoDuration,
-} from "./timer-core.js";
-import { initializeLightning } from "./lightning.js";
-import { initializeRain } from "./rain.js";
+} from "./timer-core.js?v=20260905-2";
+import { initializeLightning } from "./lightning.js?v=20260905-2";
+import { initializeRain } from "./rain.js?v=20260905-2";
 
 const elements = {
   timeDisplay: document.querySelector("#time-display"),

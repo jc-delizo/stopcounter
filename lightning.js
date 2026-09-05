@@ -61,6 +61,7 @@ class LightningScene {
     this.enabled = false;
     this.flashTimer = null;
     this.animationFrame = null;
+    this.flashCount = 0;
     this.flashStartedAt = 0;
     this.flashDuration = 1_050;
     this.watch = null;
@@ -147,7 +148,7 @@ class LightningScene {
     this.cancelScheduledFlash();
     this.cancelActiveFlash();
 
-    if (enabled && !document.hidden) this.scheduleFlash(true);
+    if (enabled && !document.hidden) this.startFlash();
   }
 
   scheduleFlash(firstFlash = false) {
@@ -171,11 +172,15 @@ class LightningScene {
       window.cancelAnimationFrame(this.animationFrame);
       this.animationFrame = null;
     }
+    delete this.canvas.dataset.flashing;
     this.context.clearRect(0, 0, this.width, this.height);
   }
 
   startFlash() {
     if (!this.enabled || document.hidden) return;
+    this.flashCount += 1;
+    this.canvas.dataset.flashCount = String(this.flashCount);
+    this.canvas.dataset.flashing = "true";
     this.flashStartedAt = performance.now();
     this.flashDuration = this.motionPreference.matches ? 1_150 : 1_050;
     this.animationFrame = window.requestAnimationFrame((timestamp) =>
@@ -200,6 +205,7 @@ class LightningScene {
         this.drawFlash(nextTimestamp),
       );
     } else {
+      delete this.canvas.dataset.flashing;
       this.context.clearRect(0, 0, this.width, this.height);
       this.scheduleFlash();
     }
