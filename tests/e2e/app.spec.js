@@ -267,6 +267,31 @@ test("toggles and remembers the click-through rain effect", async ({
   await expect(page.locator("body")).toHaveAttribute("data-rain", "off");
 });
 
+test("activates window-frame lightning without person silhouettes", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const canvas = page.locator("#lightning-canvas");
+  const toggle = page.locator("#lightning-toggle");
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+  await expect(toggle).toHaveAccessibleName("Turn lightning on");
+  await expect(canvas).toHaveCSS("pointer-events", "none");
+  await expect(page.locator("body")).toHaveAttribute("data-lightning", "off");
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("body")).toHaveAttribute("data-lightning", "on");
+  await expect(canvas).not.toHaveAttribute("data-pose", /.+/);
+
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "false");
+
+  await expect(page.locator("footer")).toContainText(
+    "© 2023 JC Delizo. All rights reserved.",
+  );
+});
+
 test("exposes an accessible name for every button", async ({ page }) => {
   await page.goto("/");
 

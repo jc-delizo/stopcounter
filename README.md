@@ -12,6 +12,7 @@ Live site: <https://jc-delizo.github.io/stopcounter/>
 - Start, pause, reset, progress, and disabled-state feedback
 - Mechanical button tones and an automatic three-tone countdown completion sound
 - Procedural rain with wood, glass, and metal impact effects plus a persistent on/off control
+- Optional lightning with window-frame projections and localized watch reflections
 - Keyboard controls and accessible names for every action
 - Responsive physical-watch design with precisely curved, state-aware dial labels
 - No application framework or runtime dependencies
@@ -65,6 +66,7 @@ Local end-to-end tests use the installed Google Chrome channel.
 ├── index.html                 # Semantic app interface
 ├── index.css                  # Responsive physical-watch design
 ├── index.js                   # DOM behavior, audio, and keyboard controls
+├── lightning.js               # Lightning and window-frame shadows
 ├── rain.js                    # Procedural rain and surface-impact simulation
 ├── timer-core.js              # Framework-independent timer state model
 ├── images/                    # Responsive, optimized production images

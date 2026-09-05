@@ -31,22 +31,42 @@
     <title>JCNESS Stopwatch &amp; Countdown</title>
   </head>
   <body>
+    <canvas
+      id="lightning-canvas"
+      class="lightning-canvas"
+      aria-hidden="true"
+    ></canvas>
     <canvas id="rain-canvas" class="rain-canvas" aria-hidden="true"></canvas>
-    <button
-      id="rain-toggle"
-      class="rain-toggle"
-      type="button"
-      aria-label="Turn rain off"
-      aria-pressed="true"
-      title="Turn rain off"
-    >
-      <svg viewBox="0 0 16 20" aria-hidden="true" focusable="false">
-        <path
-          d="M8 0.9C6.4 4.1 2.1 8.6 2.1 13A5.9 5.9 0 0 0 13.9 13C13.9 8.6 9.6 4.1 8 0.9Z"
-        />
-      </svg>
-      <span id="rain-toggle-label">RAIN ON</span>
-    </button>
+    <div class="weather-controls" role="group" aria-label="Scene effects">
+      <button
+        id="rain-toggle"
+        class="weather-toggle rain-toggle"
+        type="button"
+        aria-label="Turn rain off"
+        aria-pressed="true"
+        title="Turn rain off"
+      >
+        <svg viewBox="0 0 16 20" aria-hidden="true" focusable="false">
+          <path
+            d="M8 0.9C6.4 4.1 2.1 8.6 2.1 13A5.9 5.9 0 0 0 13.9 13C13.9 8.6 9.6 4.1 8 0.9Z"
+          />
+        </svg>
+        <span id="rain-toggle-label">RAIN ON</span>
+      </button>
+      <button
+        id="lightning-toggle"
+        class="weather-toggle lightning-toggle"
+        type="button"
+        aria-label="Turn lightning on"
+        aria-pressed="false"
+        title="Turn lightning on"
+      >
+        <svg viewBox="0 0 18 22" aria-hidden="true" focusable="false">
+          <path d="M10.8 0.8 2.2 12.2h5.6L6.6 21.1l9.2-12.6h-5.5l.5-7.7Z" />
+        </svg>
+        <span id="lightning-toggle-label">LIGHTNING OFF</span>
+      </button>
+    </div>
 
     <main class="app-shell">
       <section class="timer-workspace" aria-labelledby="timer-heading">
@@ -318,7 +338,7 @@
     </main>
 
     <footer>
-      <p>Designed and built by JC Delizo.</p>
+      <p>&copy; 2023 JC Delizo. All rights reserved.</p>
     </footer>
 
     <script type="module" src="index.js"></script>

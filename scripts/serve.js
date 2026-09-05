@@ -19,6 +19,7 @@ const publicFiles = new Set([
   "index.html",
   "index.css",
   "index.js",
+  "lightning.js",
   "rain.js",
   "timer-core.js",
 ]);

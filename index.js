@@ -7,6 +7,7 @@ import {
   formatDuration,
   toIsoDuration,
 } from "./timer-core.js";
+import { initializeLightning } from "./lightning.js";
 import { initializeRain } from "./rain.js";
 
 const elements = {
@@ -428,3 +429,4 @@ document.addEventListener("visibilitychange", () => {
 
 render();
 initializeRain();
+initializeLightning();

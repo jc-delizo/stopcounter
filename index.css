@@ -75,13 +75,21 @@ button:focus-visible {
   border: 0;
 }
 
+.lightning-canvas,
 .rain-canvas {
   position: fixed;
-  z-index: 10;
   inset: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
+}
+
+.lightning-canvas {
+  z-index: 9;
+}
+
+.rain-canvas {
+  z-index: 10;
   transition: opacity 180ms ease;
 }
 
@@ -89,11 +97,18 @@ button:focus-visible {
   opacity: 0;
 }
 
-.rain-toggle {
+.weather-controls {
   position: fixed;
   z-index: 20;
   top: clamp(0.6rem, 1.7vw, 1.1rem);
   right: clamp(0.6rem, 1.7vw, 1.1rem);
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.weather-toggle {
   display: inline-flex;
   min-height: 2.2rem;
   padding: 0.42rem 0.68rem;
@@ -119,27 +134,37 @@ button:focus-visible {
     transform 140ms ease;
 }
 
-.rain-toggle svg {
+.weather-toggle svg {
   width: 0.72rem;
   height: 0.9rem;
   fill: currentColor;
   filter: drop-shadow(0 0 0.2rem rgba(150, 220, 255, 0.6));
 }
 
-.rain-toggle:hover {
+.weather-toggle:hover {
   border-color: rgba(235, 248, 255, 0.86);
   background: rgba(23, 31, 37, 0.9);
   transform: translateY(-1px);
 }
 
-.rain-toggle:active {
+.weather-toggle:active {
   transform: translateY(1px);
 }
 
-.rain-toggle[aria-pressed="false"] {
+.weather-toggle[aria-pressed="false"] {
   border-color: rgba(190, 190, 190, 0.4);
   color: #aaaeb1;
   background: rgba(20, 20, 21, 0.72);
+}
+
+.lightning-toggle[aria-pressed="true"] {
+  border-color: rgba(224, 229, 255, 0.8);
+  color: #f7f4ff;
+  background: rgba(30, 31, 47, 0.86);
+  box-shadow:
+    0 0.45rem 1rem rgba(0, 0, 0, 0.32),
+    0 0 0.75rem rgba(184, 198, 255, 0.22),
+    inset 0 1px rgba(255, 255, 255, 0.12);
 }
 
 .app-shell {
@@ -519,7 +544,11 @@ footer p {
 }
 
 @media (max-width: 560px) {
-  .rain-toggle {
+  .weather-controls {
+    gap: 0.35rem;
+  }
+
+  .weather-toggle {
     min-height: 2rem;
     padding: 0.36rem 0.55rem;
     font-size: 0.6rem;
